@@ -1,9 +1,9 @@
-(define subs2
-  (lambda (new o1 o2 lat)
+(define multirember
+  (lambda (x lat)
     (cond
-    ((null? lat) '())
-    (else
-      (cond
-	((or (eq? (car lat) o1) (eq? (car lat) o2)) (cons new (cdr lat)))
+      ((null? lat) '())
+      (else
+	(cond
+      	((eq? (car lat) x) (multirember x (cdr lat)))
 	(else
-	  (cons (car lat) (subs2 new o1 o2 (cdr lat)))))))))
+	  (cons (car lat) (multirember x (cdr lat) ))))))))
