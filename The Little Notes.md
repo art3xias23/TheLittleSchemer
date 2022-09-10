@@ -36,3 +36,9 @@ The THIRD Commandment
 	When building a list, describe the first typical element, 
 	and then cons it onto the natural recursion.
 
+The FOURTH Commandment 
+	Always change at least one argument while recurring. 
+	It must be changed to be closer to termination.
+	The changing argument must be tested in the termination:
+	when using cdr, change termination with null?
+
