@@ -1,9 +1,10 @@
-(define multirember
-  (lambda (x lat)
+(define multiinsertR
+  (lambda (new old lat)
     (cond
       ((null? lat) '())
       (else
 	(cond
-      	((eq? (car lat) x) (multirember x (cdr lat)))
-	(else
-	  (cons (car lat) (multirember x (cdr lat) ))))))))
+	  ((eq? (cat lat) old) (cons (car lat) (cons new (multiinsertR new old (cdr lat)))))
+	  (else
+	    (cons (car lat) (multiinsertR new old (cdr lat)))))))))
+
