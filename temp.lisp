@@ -1,9 +1,9 @@
-(define multisubst
-  (lambda (new old lat)
+(define tup+
+  (lambda (lat lat2)
     (cond
-      ((null? lat) '())
+      ((null? lat) lat2)
+      ((null? lat2) lat1)
       (else
-	(cond
-	  ((eq? (car lat) old) (cons new (multisubst new old (cdr lat))))
-	  (else
-	    (cons (car lat) (multisubst new old (cdr lat)))))))))
+	(cons (add (car lat) (car lat2)) (tup+ (cdr lat) (cdr lat2)))))))
+
+

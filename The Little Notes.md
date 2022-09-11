@@ -28,6 +28,10 @@ The Law of Eq?
 	
 The FIRST Commandment
 	Always ask null? as the first question in expressing any function
+	When recurring on a list of atoms, lat, ask two questions about it
+	- (null? lat) and else
+	When recurring on a list of numbers, tup, ask two questions
+	- (zero? n) and else	
 
 The SECOND Commandment
 	Use cons to build lists
@@ -40,5 +44,17 @@ The FOURTH Commandment
 	Always change at least one argument while recurring. 
 	It must be changed to be closer to termination.
 	The changing argument must be tested in the termination:
-	when using cdr, change termination with null?
+	when using cdr, test termination with null?
+	when using sub1, test termination with zero?
+
+The FIFTH Commandment 
+	When building a value with + 
+	- always use 0 as a terminating condition as adding 0 
+	  to an existing value does not change the outcome
+	When building a value with cons
+	- always use () as a terminating condition as adding ()
+	 to a list does not change the value outcome
+	When building a value with x
+	- always use 1 as a terminating condition
+	as multiplying by 1 does not change the outcome
 

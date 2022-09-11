@@ -117,3 +117,47 @@
 	  ((eq? (car lat) old) (cons new (multisubst new old (cdr lat))))
 	  (else
 	    (cons (car lat) (multisubst new old (cdr lat)))))))))
+
+(define add1
+    (lambda (x)
+      (+ x 1)))
+
+(define sub1                                                                                                              
+   (lambda (x)                                                                                                               
+     (- x 1)))
+
+(define add                                                                                                               
+  (lambda (x y)                                                                                                             
+    (cond                                                                                                                     
+      ((zero? y) x)                                                                                                           
+      (else                                                                                                                    
+	(add1 (add (x (sub1 y))))))))
+
+(define sub
+  (lambda (x y)
+    (cond
+      ((zero? y) x)
+      (else
+	(sub1 (sub x (sub1 y)))))))
+
+(define multi
+  (lambda (x y)
+    (cond
+      ((or (zero? y) (zero? x) ) 0)
+      (else
+	(add x (multi x (sub1 y)))))))
+
+(define addup 
+  (lambda (lat)
+    (cond
+      ((null? lat) 0)
+      (else
+	(add (car lat) (addup (cdr lat)))))))
+
+(define tup+
+  (lambda (lat lat2)
+    (cond
+      ((null? lat) lat2)
+      ((null? lat2) lat1)
+      (else
+	(cons (add (car lat) (car lat2)) (tup+ (cdr lat) (cdr lat2)))))))
