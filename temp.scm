@@ -1,6 +1,6 @@
-(define ???
-  (lambda (a b)
+(define pick
+  (lambda (n lat)
     (cond
-      ((< n m) 0)
+      ((zero? (sub1 n)) (car lat))
       (else
-	(add1 (??? (- n m) m))))))
+	(pick (sub1 n) (cdr lat))))))
