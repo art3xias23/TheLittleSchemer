@@ -161,3 +161,40 @@
       ((null? lat2) lat1)
       (else
 	(cons (add (car lat) (car lat2)) (tup+ (cdr lat) (cdr lat2)))))))
+
+
+(define >> 
+  (lambda(a b)
+    (cond
+      ((zero? a) #f)
+      ((zero? b) #t)
+      (else
+	(>>(sub1 a) (sub1 b))))))
+
+(define << 
+  (lambda(a b)
+    (cond
+      ((zero? b) #f)
+      ((zero? a) #t)
+      (else
+	(<<(sub1 a) (sub1 b))))))
+
+(define ===
+  (lambda (a b)
+    (cond
+	((or (>> a b) (<< a b)) #f)
+      (else #t))))
+
+(define ^
+  (lambda(a b)
+    (cond
+      ((zero? b) 1)
+      (else 
+	(* a (^ a (sub1 b)))))))
+
+(define ???
+  (lambda (a b)
+    (cond
+      ((< n m) 0)
+      (else
+	(add1 (??? (- n m) m))))))
