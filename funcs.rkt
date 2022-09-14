@@ -247,4 +247,3 @@
       ((or (number? a) (number? b)) #f)
       (else
 	(eq? a b)))))
-
