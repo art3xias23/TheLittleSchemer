@@ -1,28 +1,9 @@
-(define no-nums
-  (lambda (lat)
+(define occur
+  (lambda (n lat)
     (cond
-      ((null? lat) '())
-      ((number? (car lat)) (no-nums (cdr lat)))
-	(else
-	  (cons (car lat) (no-nums (cdr lat)))))))
-
-(define all-nums
-  (lambda (lat)
-    (cond
-      ((null? lat) '())
+      ((null? lat) 0)
       (else
 	(cond
-	  ((number? (car lat)) (cons (car lat) (all-nums (cdr lat))))
+	  ((eq? (car lat) n) (add1 (occur n (cdr lat))))
 	  (else
-	    (all-nums (cdr lat))))))))
-
-(define equan? 
-  (lambda (a b)
-    (cond
-      ((and (number? a) (number? b)) (= a b))
-      ((or (number? a) (number? b)) #f)
-      (else
-	(eq? a b)))))
-
-
-			      
+	    (occur n (cdr lat))))))))
