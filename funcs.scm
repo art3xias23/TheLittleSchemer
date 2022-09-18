@@ -263,3 +263,14 @@
     (cond
       ((number? n) (= 1 n))
       (else #f))))
+
+(define rempick-one
+  (lambda (n lat)
+    (cond
+      ((null? lat) '())
+      (else
+	(cond
+      	  ((one? n) (cdr lat))
+	  (else
+	    (cons (car lat) (rempick-one (sub1 n) (cdr lat)))))))))
+
