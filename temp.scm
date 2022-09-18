@@ -1,28 +1,24 @@
-(define no-nums
-  (lambda (lat)
+(define rember*
+  (lambda (a l)
     (cond
       ((null? lat) '())
-      ((number? (car lat)) (no-nums (cdr lat)))
-	(else
-	  (cons (car lat) (no-nums (cdr lat)))))))
-
-(define all-nums
-  (lambda (lat)
-    (cond
-      ((null? lat) '())
+      ((atom? (car lat))
+       (cond
+	 ((eq? (car lat) a)
+	  (rember* a (cdr lat)))
+	 (else
+	   (cons (car l) (rember* a (cdr l))))))
       (else
-	(cond
-	  ((number? (car lat)) (cons (car lat) (all-nums (cdr lat))))
-	  (else
-	    (all-nums (cdr lat))))))))
+	(cons (rember* a (car l)
+		       (rember* a (cdr lat))))))))
+a = cup
+l = ((coffee) cup ((tea) cup) (and (hick)) cup)
 
-(define equan? 
-  (lambda (a b)
-    (cond
-      ((and (number? a) (number? b)) (= a b))
-      ((or (number? a) (number? b)) #f)
-      (else
-	(eq? a b)))))
+(rember* a l)
+(cons (rember* a (tea)) (rember* a (cup ((tea) cup) (and (hick)) cup)))
+(cons (cons coffee '()) (rember* a (((tea) cup) (and (hick)) cup)))
+(cons  coffee (cons (rember* a ((tea) cup) (rember* a ((and (hick)) cup)))))
+(cons  coffee (cons (cons (rember* a (tea)) (rember* a cup)) (cons (rember* and (hick)) (rember* a cup))))
+(cons coffee (cons tea (cons and (hick))
 
 
-			      
