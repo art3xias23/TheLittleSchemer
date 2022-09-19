@@ -1,24 +1,40 @@
-(define rember*
-  (lambda (a l)
+(define insertR*
+  (lambda (new old l)
+      (cond
+	((null? l) '())
+	((atom? (car l))
+	 (cond
+	   ((eq? (car l) old) (cons (car l) (cons new  (insertR* new old (cdr l)))))
+	   (else
+	     (cons (car l) (insertR* new old (cdr l))))))
+	(else
+	  (cons (insertR* new old (car l)) (insertR* new old (cdr l)))))))
+
+(define occur*
+  (lambda(a l)
     (cond
-      ((null? lat) '())
-      ((atom? (car lat))
+      ((null? l) 0)
+      ((atom? (car l))
        (cond
-	 ((eq? (car lat) a)
-	  (rember* a (cdr lat)))
+	 ((eq? (car l) a) (add1 (occur* a (cdr l))))
 	 (else
-	   (cons (car l) (rember* a (cdr l))))))
+	   (occur* a (cdr l)))))
       (else
-	(cons (rember* a (car l)
-		       (rember* a (cdr lat))))))))
-a = cup
-l = ((coffee) cup ((tea) cup) (and (hick)) cup)
+	(+ (occur* a (car l)) (occur* a (cdr l)))))))
 
-(rember* a l)
-(cons (rember* a (tea)) (rember* a (cup ((tea) cup) (and (hick)) cup)))
-(cons (cons coffee '()) (rember* a (((tea) cup) (and (hick)) cup)))
-(cons  coffee (cons (rember* a ((tea) cup) (rember* a ((and (hick)) cup)))))
-(cons  coffee (cons (cons (rember* a (tea)) (rember* a cup)) (cons (rember* and (hick)) (rember* a cup))))
-(cons coffee (cons tea (cons and (hick))
+(define subst* 
+  (lambda (new old l)
+    (cond
+      ((null? l) '())
+      ((atom? (car l))
+       (cond
+	 ((eq? (car l) old) (cons new (subst* new old (cdr l))))
+	 (else
+	   (cons (car l) (subst* new old (cdr l))))))
+      (else
+	(cons (subst* new old (car l)) (subst* new old (cdr l)))))))
 
 
+'(("how much" '("wood")) "could" '('("a" '("wood") "chuck")) '('('("chuck"))) '("if" '("a") '('("wood chuck"))) "could chuck wood")
+
+'('("banana") '("split" '('('('("banana ice"))) '("cream" '("banana")) "sherbet")) '("banana") '("bread") '("banana brandy"))
