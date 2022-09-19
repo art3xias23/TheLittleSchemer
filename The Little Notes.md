@@ -30,8 +30,12 @@ The FIRST Commandment
 	Always ask null? as the first question in expressing any function
 	When recurring on a list of atoms, lat, ask two questions about it
 	- (null? lat) and else
-	When recurring on a list of numbers, tup, ask two questions
+
+	When recurring on a  number, ask two questions
 	- (zero? n) and else	
+
+	When recorrung on a list of S-expressions, l, ask three questions about it:
+	- (null? l), (atom? (car l)) and else
 
 The SECOND Commandment
 	Use cons to build lists
@@ -42,7 +46,16 @@ The THIRD Commandment
 
 The FOURTH Commandment 
 	Always change at least one argument while recurring. 
+
+	When recurring on a list of atoms, lat, use (cdr lat). 
+
+	When recurring on a number n, use (sub1 n). 
+
+	And when recuurring on a list of S-expressions, l, use (car l) and (cdr l) 
+	if neither (null? nor (atom? (car l)) are true.
+
 	It must be changed to be closer to termination.
+
 	The changing argument must be tested in the termination:
 	when using cdr, test termination with null?
 	when using sub1, test termination with zero?

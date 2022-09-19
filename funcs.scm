@@ -58,7 +58,14 @@
 (define subs
   (lambda (new old lat)
     (cond
-      ((null? lat) '())
+      ((null? lat) '())var queryParameters = new DynamicParameters();
+queryParameters.Add("@parameter1", valueOfparameter1);
+queryParameters.Add("@parameter2", valueOfparameter2);
+
+await db.QueryAsync<YourReturnType>(
+    "{NameOfStoredProcedure}",
+    queryParameters,
+    commandType: CommandType.StoredProcedure)
       (else
 	(cond
 	  ((eq? (car lat) old) (cons new (cdr lat)))
@@ -273,4 +280,18 @@
       	  ((one? n) (cdr lat))
 	  (else
 	    (cons (car lat) (rempick-one (sub1 n) (cdr lat)))))))))
+
+(define rember*
+  (lambda (a l)
+    (cond
+      ((null? lat) '())
+      ((atom? (car lat))
+       (cond
+	 ((eq? (car lat) a)
+	  (rember* a (cdr lat)))
+	 (else
+	   (cons (car l) (rember* a (cdr l))))))
+      (else
+	(cons (rember* a (car l)
+		       (rember* a (cdr lat))))))))
 
