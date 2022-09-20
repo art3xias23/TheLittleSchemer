@@ -295,7 +295,7 @@ await db.QueryAsync<YourReturnType>(
 	(cons (rember* a (car l)
 		       (rember* a (cdr lat))))))))
 
-(define insertR*
+ insertR*
   (lambda (new old l)
       (cond
 	((null? l) '())

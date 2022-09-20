@@ -25,6 +25,9 @@
       ((atom? (car l)) (car l))
       (else
 	(leftmost (car l))))))
+(define eqlist?
+  (lambda (l1 l2)
+    (cond
 
 ((potato) (chips ((with) fish) (chips)))
 
