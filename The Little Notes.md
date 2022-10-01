@@ -69,7 +69,9 @@ to an existing value does not change the outcome
 - When building a value with x
 	- always use 1 as a terminating condition
 	as multiplying by 1 does not change the outcome
+## The Sixth Commandment
+- Simplify only after the function is correct
 
 # TERMINOLOGY
 ### S-expression
-		+ 
+- An S-expression is either an atom or a (possibly empty) list of S-expressions
