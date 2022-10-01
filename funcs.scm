@@ -389,7 +389,6 @@ await db.QueryAsync<YourReturnType>(
        (else
 	 (and (eqlist? (car l1) (car l2)) (eqlist? (cdr l1) (cdr l2)))))))
 
-
 (define equal?
   (lambda (s1 s2)
     (cond

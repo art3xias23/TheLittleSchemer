@@ -75,3 +75,5 @@ to an existing value does not change the outcome
 # TERMINOLOGY
 ### S-expression
 - An S-expression is either an atom or a (possibly empty) list of S-expressions
+### Arithmetic Expression
+- Either an atom (including numbers) or two arithmetic expressions combined by +, -, ^ or x
