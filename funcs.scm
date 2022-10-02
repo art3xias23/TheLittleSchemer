@@ -330,3 +330,80 @@ await db.QueryAsync<YourReturnType>(
 	   (cons (car l) (subst* new old (cdr l))))))
       (else
 	(cons (subst* new old (car l)) (subst* new old (cdr l)))))))
+
+(define insertL*
+  (lambda(new old l)
+    (cond
+      ((null? l) '())
+      ((atom? (car l))
+       (cond
+	 ((eq? (car l) old) (cons new (cons (car l) (insertL* new old (cdr l)))))
+	 (else
+	   (cons (car l) (insertL* new old (cdr l))))))
+      (else
+	(cons (insertL* new old (car l)) (insertL* new old (cdr l)))))))
+
+(define member* 
+  (lambda (a l)
+    (cond
+      ((null? l) #f)
+      ((atom? (car l)) (or (eq? (car l) a) (member* a (cdr l)))) 
+      (else
+	(or (member* a (car l)) (member* a (cdr l)))))))
+
+(define leftmost
+  (lambda (l)
+    (cond
+      ((null? l) '())
+      ((atom? (car l)) (car l))
+      (else
+	(leftmost (car l))))))
+
+(define eqlist?
+  (lambda (l1 l2)
+    (cond
+      ((and (null? l1) (null? l2)) #t)
+      ((and (null? l1) (atom? (car l2))) #f)
+      ((null? l1) #f)
+       ((null? l2) #f)
+      ((and (atom? l1) (null? l2)) #f)
+      ((and (atom? (car l1)) (atom? (car l2)))
+       (and (equan? (car l1)) (equan? (car l2))
+	   (and (eqlist? (cdr l1)) (eqlist? (cdr l2)))))
+       ((atom? (car l1)) #f)
+       ((atom? (car l2)) #f)
+       (else
+	 (and (eqlist? (car l1) (car l2)) (eqlist? (cdr l1) (cdr l2)))))))
+
+(define rewriteEqlist?
+  (lambda (l1 l2)
+    (cond
+      ((and (null? l1) (null? l2)) #t)
+      ((or (null? l1) (null? l2)) #f)
+      ((and (null? l1) (atom? (car l2))) #f)
+      ((and (atom? l1) (null? l2)) #f)
+      ((and (atom? (car l1)) (atom? (car l2)))
+       (and (equan? (car l1)) (equan? (car l2))
+	   (and (eqlist? (cdr l1)) (eqlist? (cdr l2)))))
+      ((or (atom? l1) (atom? l2)) #f)
+       (else
+	 (and (eqlist? (car l1) (car l2)) (eqlist? (cdr l1) (cdr l2)))))))
+
+(define equal?
+  (lambda (s1 s2)
+    (cond
+      ((and (atom? (car l1)) (atom? (car l2)))
+	 (equan? s1 s2))
+      ((or (atom? s1) (atom? s2)) #f)
+      (else (eqlist s1 s2)))))
+
+(define eqlistEqual?
+  (lambda (l1 l2)
+    (cond
+      ((and (null? l1) (null? l2)) #t)
+      ((or (null? l1) (null? l2)) #f)
+      (else 
+	(and (equal? (car l1)) (equal? (car l2))
+	     (and (eqlist? (cdr l1)) (eqlist? (cdr l2))))))))
+
+
