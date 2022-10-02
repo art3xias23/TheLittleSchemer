@@ -72,6 +72,13 @@ to an existing value does not change the outcome
 ## The Sixth Commandment
 - Simplify only after the function is correct
 
+## The Seventh Commandment
+- Recur on the subparts that are of the same nature:
+	- On the sublist of a list
+	- On the subexpression of an arithmetic expression
+## The Eight Commandment 
+- Use help functions to hide representation
+
 # TERMINOLOGY
 ### S-expression
 - An S-expression is either an atom or a (possibly empty) list of S-expressions

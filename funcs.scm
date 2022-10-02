@@ -1,7 +1,9 @@
+;;; Checks if x is not a list and not an empty list
 (define atom?
 	(lambda(x)
 		(and (not (pair? x)) (not (null? x)))))
 
+;;; Checks if x is an empty list or a list of atoms
 (define lat?
 	(lambda(x)
 		(cond
@@ -9,6 +11,7 @@
 			((atom? (car x)) (lat? (cdr x)))
 			(else #f))))
 			
+;;; Checks if a is a member of lat
 (define member?
 	(lambda(a lat)
 		(cond
@@ -17,6 +20,7 @@
 				(member? a (cdr lat)))))))
 
 
+;;; Checks if a is a member of lat
 (define rember?
   (lambda (a lat)
     (cond 
@@ -26,7 +30,7 @@
                 ((eq? a (car lat)) (cdr lat))
                 (else (cons (car lat)  (rember? a (cdr lat)))))))))
 
-
+;;; Combines all the first elements of all s-expressions inside lat
 (define firsts
   (lambda (lat)
     (cond
@@ -34,7 +38,7 @@
       (else
         (cons (car (car lat)) (firsts(cdr lat)))))))
 		
-(define? insertR
+(define insertR
          (lambda (new old lat)
            (cond
              ((null? lat) '())
@@ -58,14 +62,7 @@
 (define subs
   (lambda (new old lat)
     (cond
-      ((null? lat) '())var queryParameters = new DynamicParameters();
-queryParameters.Add("@parameter1", valueOfparameter1);
-queryParameters.Add("@parameter2", valueOfparameter2);
-
-await db.QueryAsync<YourReturnType>(
-    "{NameOfStoredProcedure}",
-    queryParameters,
-    commandType: CommandType.StoredProcedure)
+      ((null? lat) '())
       (else
 	(cond
 	  ((eq? (car lat) old) (cons new (cdr lat)))
@@ -82,7 +79,7 @@ await db.QueryAsync<YourReturnType>(
 	(else
 	  (cons (car lat) (subs2 new o1 o2 (cdr lat)))))))))
 
-
+;;; Removed all occurances of x in lat
 (define multirember
   (lambda (x lat)
     (cond
@@ -281,6 +278,7 @@ await db.QueryAsync<YourReturnType>(
 	  (else
 	    (cons (car lat) (rempick-one (sub1 n) (cdr lat)))))))))
 
+
 (define rember*
   (lambda (a l)
     (cond
@@ -295,7 +293,7 @@ await db.QueryAsync<YourReturnType>(
 	(cons (rember* a (car l)
 		       (rember* a (cdr lat))))))))
 
- insertR*
+ (define insertR*
   (lambda (new old l)
       (cond
 	((null? l) '())
@@ -407,3 +405,40 @@ await db.QueryAsync<YourReturnType>(
 	     (and (eqlist? (cdr l1)) (eqlist? (cdr l2))))))))
 
 
+(define numbered? 
+  (lambda (aexp)
+    (cond
+      ((atom? aexp) (number? aexp))
+      (else
+	(and (numbered? (car aexp))
+	     (numered? (car (cdr (cdr aexp)))))))))
+
+(define value
+  (lambda (nexp)
+    (cond
+      ((atom? nexp) nexp)
+      ((eq? (car (cdr nexp)) (quote +)) 
+       (+ (value (car nexp)) (value (car (cdr (cdr nexp))))))
+      ((eq? (car (cdr nexp)) (quote x)) 
+       (x (value (car nexp)) (value (cdr (cdr nexp))))) 
+      ((eq? (car (cdr nexp)) (quote ^)) 
+       (expt (value (car nexp)) (value (cdr (cdr nexp))))) 
+      (else '(unrecognized symbol)))))
+
+(define set?
+  (lambda (lat)
+    (cond
+      ((null? lat) #t)
+      ((member? (car l) (cdr l)) #f)
+      (else
+	(set (cdr lat))))))
+
+(define makeset
+  (lambda (lat)
+    (cond 
+      ((null? lat) '())
+      ((member? (car lat) (cdr lat)) (makeset (cdr lat)))
+      (else
+	(cons (car lat) (makeset (cdr lat)))))))
+
+;;;    '(apple peach pear peach plum apple lemon peach)

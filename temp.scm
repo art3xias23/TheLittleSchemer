@@ -1,10 +1,17 @@
-(define numbered? 
-  (lambda (aexp)
+(define set?
+  (lambda (lat)
     (cond
-      ((atom? aexp) (number? aexp))
-      ((eq? (car (cdr aexp)) '(+))
-       (and (number? (car aexp) ) (number? (car (cdr (cdr aexp))))))
-      ((eq? (car (cdr aexp)) '(x)
-       (and (number? (car aexp) ) (number? (car (cdr (cdr aexp))))))
-      ((eq? (car (cdr aexp)) '(^)
-       (and (number? (car aexp) ) (number? (car (cdr (cdr aexp)))))) 
+      ((null? lat) #t)
+      ((member? (car l) (cdr l)) #f)
+      (else
+	(set (cdr lat))))))
+
+(define makeset
+  (lambda (lat)
+    (cond 
+      ((null? lat) '())
+      ((member? (car lat) (cdr lat)) (makeset (cdr lat)))
+      (else
+	(cons (car lat) (makeset (cdr lat)))))))
+
+    '(apple peach pear peach plum apple lemon peach)
