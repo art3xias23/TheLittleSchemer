@@ -189,12 +189,12 @@
 	((or (>> a b) (<< a b)) #f)
       (else #t))))
 
-(define ^
+(define exup
   (lambda(a b)
     (cond
       ((zero? b) 1)
       (else 
-	(* a (^ a (sub1 b)))))))
+	(* a (exup a (sub1 b)))))))
 
 (define ???
   (lambda (a b)
@@ -433,6 +433,7 @@
       (else
 	(set (cdr lat))))))
 
+;;;Makeset using member. If we have an occurance of the item, don't cons it
 (define makeset
   (lambda (lat)
     (cond 
@@ -440,5 +441,43 @@
       ((member? (car lat) (cdr lat)) (makeset (cdr lat)))
       (else
 	(cons (car lat) (makeset (cdr lat)))))))
+
+(define subset?
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) #t)
+      (else
+	(and (member? (car set1) set2)
+	(subset? (cdr set1) set2))))))
+
+(define eqset?
+  (lambda (set1 set2)
+      ((and (subset? set1 set2) (subset? set2 set1))))))
+
+(define intersect? 
+  (lambda(set1 set2)
+    (cond
+      ((null? set1) #f)
+      (else
+	(or (member? (car set1) set2)
+	  (intersect? (cdr set1) set2))))))
+
+
+(define intersect
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) '())
+      ((member? (car set1) set2) 
+       (cons (car set1) (intersect (cdr set1) set2)))
+      (else
+	(intersect (cdr set1) set2)))))
+
+(define union 
+  (lambda (set1 set2)
+    (cond
+      ((null? set1) set2)
+      ((member? (car set1) set2) (union (cdr set1) set2))
+      (else
+      (cons (car set1) (union (cdr set1) set2))))))
 
 ;;;    '(apple peach pear peach plum apple lemon peach)

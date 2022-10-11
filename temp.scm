@@ -1,17 +1,7 @@
-(define set?
-  (lambda (lat)
+(define union 
+  (lambda (set1 set2)
     (cond
-      ((null? lat) #t)
-      ((member? (car l) (cdr l)) #f)
+      ((null? set1) set2)
+      ((member? (car set1) set2) (union (cdr set1) set2))
       (else
-	(set (cdr lat))))))
-
-(define makeset
-  (lambda (lat)
-    (cond 
-      ((null? lat) '())
-      ((member? (car lat) (cdr lat)) (makeset (cdr lat)))
-      (else
-	(cons (car lat) (makeset (cdr lat)))))))
-
-    '(apple peach pear peach plum apple lemon peach)
+      (cons (car set1) (union (cdr set1) set2))))))
