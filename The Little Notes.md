@@ -81,6 +81,25 @@ to an existing value does not change the outcome
 
 # TERMINOLOGY
 ### S-expression
-- An S-expression is either an atom or a (possibly empty) list of S-expressions
+- An S-expression is either an atom or a (possibly empty) list of S-expressions. Data is referred to as Lists and code is S-expression. As lists return lists and s-expressions return a result.
 ### Arithmetic Expression
 - Either an atom (including numbers) or two arithmetic expressions combined by +, -, ^ or x
+
+# EQUALITY FUNCTIONS
+### Eq? 
+- Non-numeric atoms
+
+### Equan?
+- Non-numeric atoms
+- Numeric Atoms
+
+### Eqlist?
+- non-numeric atoms
+- numberic atoms
+- lists
+
+### Equal?
+- non-numeric atoms
+- numberic atoms
+- lists
+- S-expressions
